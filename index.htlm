@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Static URL Chatbot</title>
+</head>
+<body>
+    <h2>Ask the Chatbot!</h2>
+    <input type="text" id="query" placeholder="Type your question">
+    <button onclick="sendQuery()">Send</button>
+    <div id="response"></div>
+    <script>
+        function sendQuery() {
+            let query = document.getElementById('query').value;
+            fetch('/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({query: query})
+            }).then(resp => resp.json())
+              .then(data => {
+                document.getElementById('response').innerText = data.response;
+              });
+        }
+    </script>
+</body>
+</html>
